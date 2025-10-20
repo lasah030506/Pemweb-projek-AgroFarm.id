@@ -1,0 +1,303 @@
+:root {
+    --green-dark: #2c6e49;
+    --green-medium: #4c956c;
+    --green-light: #86c69c;
+    --white: #ffffff;
+    --gray-light: #f3f3f3;
+    --text-dark: #333;
+    --text-light: #555;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    background: var(--gray-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+    width: 240px;
+    background: var(--green-dark);
+    color: var(--white);
+    height: 100vh;
+    position: fixed;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000; /* Pastikan sidebar di atas konten lain */
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    width: 100%;
+}
+
+.sidebar-menu li {
+    width: 100%;
+}
+
+.sidebar-menu a {
+    display: block;
+    color: var(--white);
+    text-decoration: none;
+    padding: 14px 20px;
+    transition: 0.3s;
+}
+
+.sidebar-menu a:hover {
+    background: var(--green-medium);
+}
+
+/* === NAVBAR === */
+.navbar--dashboard {
+    /* FIX: calc(100% - 240px) sudah benar untuk desktop */
+    width: calc(100% - 240px); 
+    background: var(--green-dark);
+    color: var(--white);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: 0.3s;
+    z-index: 100;
+}
+
+.navbar--dashboard.shrink {
+    height: 60px;
+    background: var(--green-medium);
+    transition: 0.3s;
+}
+
+/* === MAIN CONTENT === */
+main {
+    /* FIX: margin-left ini adalah kunci agar konten tidak tumpang tindih dengan sidebar fixed */
+    margin-left: 240px; 
+    margin-top: 90px;
+    padding: 30px;
+    width: 100%; /* Agar konten mengambil sisa ruang */
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.service-box {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    text-align: center;
+}
+
+.service-box:hover {
+    transform: translateY(-5px);
+}
+
+.service-box i {
+    font-size: 32px;
+    color: var(--green-medium);
+    margin-bottom: 10px;
+}
+
+/* === POPUP BOX === */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: var(--white);
+    padding: 30px 40px;
+    border-radius: 14px;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+.popup-content h2 {
+    color: var(--green-dark);
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    color: var(--text-light);
+}
+
+.popup .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* === TOAST === */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--green-medium);
+    color: var(--white);
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* === BAGIAN DATA HARGA (FETCH API) === */
+.harga-section {
+    margin-top: 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.harga-list {
+    margin-top: 10px;
+    display: grid;
+    gap: 10px;
+}
+
+.harga-item {
+    background: var(--gray-light);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ========================================================= */
+/* === FIX RESPONSIVE: MEDIA QUERIES UNTUK LAYAR KECIL === */
+/* ========================================================= */
+@media (max-width: 768px) {
+    body {
+        /* Hilangkan display:flex di body untuk mengizinkan komponen mengalir secara vertikal */
+        display: block; 
+    }
+
+    /* === SIDEBAR (Diubah dari Fixed menjadi Static di atas) === */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static; 
+        padding-top: 10px;
+        padding-bottom: 10px;
+        flex-direction: row; /* Ubah tata letak agar menu horizontal */
+        justify-content: space-around;
+        align-items: center;
+        /* Tambahkan border bawah agar terlihat pemisah dengan navbar */
+        border-bottom: 2px solid var(--green-medium);
+    }
+
+    .sidebar h2 {
+        display: none; /* Sembunyikan judul AgroFarm di HP */
+    }
+
+    .sidebar-menu {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    .sidebar-menu li {
+        width: auto;
+        flex: 1;
+        text-align: center;
+    }
+
+    .sidebar-menu a {
+        padding: 10px 5px;
+        font-size: 14px;
+    }
+    
+    /* === NAVBAR (Diubah dari Fixed menjadi Static di bawah Sidebar) === */
+    .navbar--dashboard {
+        width: 100%;
+        position: static; 
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 10px;
+        z-index: 1; /* Z-index lebih rendah */
+    }
+    
+    .navbar--dashboard h1 {
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+
+    /* Menghilangkan efek shrink di mobile */
+    .navbar--dashboard.shrink {
+        height: auto;
+        background: var(--green-dark); 
+    }
+
+    /* === MAIN CONTENT (Dihilangkan margin kirinya) === */
+    main {
+        margin-left: 0; /* Hapus margin yang menggeser konten dari sidebar fixed */
+        margin-top: 10px; /* Kurangi margin atas */
+        padding: 15px; /* Kurangi padding agar lebih banyak ruang */
+        min-height: calc(100vh - 150px); /* Pastikan footer didukung */
+    }
+
+    /* === SERVICES (Diubah menjadi 1 kolom) === */
+    .services {
+        grid-template-columns: 1fr; /* Hanya satu kolom di layar kecil */
+    }
+
+    /* === TOAST === */
+    .toast {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+}
