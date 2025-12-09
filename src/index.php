@@ -10,15 +10,16 @@
 
   <header class="navbar" role="banner">
     <div class="container">
-      <a class="brand" href="index.html">
+      <a class="brand" href="index.php">
         <img src="../assets/logo.png" alt="AgroFarm Logo">
         <span class="title">AgroFarm.id</span>
       </a>
       <nav class="nav-menu" aria-label="Main Navigation">
-        <a href="index.html">Home</a>
-        <a href="register.html">Register</a>
-        <a href="login.html">Login</a>
-        <a href="dashboard.html">Dashboard</a>
+        <a href="index.php">Home</a>
+        <a href="register.php">Register</a>
+        <a href="user_login.php">Login User</a>
+        <a href="admin_login.php" style="font-weight: 700; color: #f0ad4e;">Login Admin</a>
+        <a href="dashboard.php">Dashboard</a>
       </nav>
     </div>
   </header>

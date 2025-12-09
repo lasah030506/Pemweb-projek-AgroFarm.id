@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Register - AgroFarm</title>
-  <link rel="stylesheet" href="/style/style.css">
+  <title>Login - AgroFarm</title>
+  <link rel="stylesheet" href="../style/style.css">
 </head>
 <body class="form-page">
 
   <div class="form-box">
-    <h2>Register</h2>
+    <h2>Login</h2>
     <form>
-      <input type="text" placeholder="Nama Lengkap" required>
       <input type="email" placeholder="Email" required>
       <input type="password" placeholder="Password" required>
-      <button class="btn" type="submit">Register</button>
+      <button class="btn" type="submit">Login</button>
     </form>
     <p style="margin:12px 0;">or continue with</p>
     <button class="btn" style="background:#fff; color:#111;">Google</button>
