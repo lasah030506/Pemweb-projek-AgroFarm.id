@@ -38,7 +38,8 @@ $result = $conn->query($sql);
         <div class="header">
             <h1><i class="fa-solid fa-users-gear"></i> Admin Panel</h1>
             <div>
-                <a href="admin_commodities.php" class="btn" style="background:#f39c12; margin-right:10px;"><i class="fa-solid fa-carrot"></i> Kelola Komoditas</a>
+                <a href="admin_commodities.php" class="btn" style="background:#f39c12; margin-right:5px;"><i class="fa-solid fa-carrot"></i> Kelola Komoditas</a>
+                <a href="admin_articles.php" class="btn" style="background:#8e44ad; color:white; padding:10px 20px; text-decoration:none; border-radius:5px; margin-right:10px;"><i class="fa-solid fa-newspaper"></i> Kelola Artikel</a>
                 <a href="dashboard.php" class="btn-back">Kembali ke Dashboard</a>
                 <a href="auth_process.php?action=logout" class="btn" style="background:#c0392b; margin-left:10px;">Logout</a>
             </div>

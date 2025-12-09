@@ -83,6 +83,41 @@ if (!isset($_SESSION['user_id'])) {
                 <p>Klik menu <strong>"Harga Pasar"</strong> di samping untuk memuat data terbaru.</p>
             </div>
         </section>
+
+        <!-- SECTION ARTIKEL TERBARU -->
+        <section class="harga-section" style="margin-top: 40px;">
+            <h2><i class="fa-solid fa-newspaper" style="color:#8e44ad;"></i> Berita & Artikel Tani</h2>
+            <div class="articles-container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:25px; margin-top:20px;">
+                <?php
+                // Fetch 3 latest articles directly here usually better via API but direct PHP is fine for dashboard load
+                require_once 'config.php';
+                $sqlArt = "SELECT * FROM articles ORDER BY created_at DESC LIMIT 3";
+                $resArt = $conn->query($sqlArt);
+                
+                if ($resArt->num_rows > 0):
+                    while($art = $resArt->fetch_assoc()):
+                ?>
+                <div class="article-card" style="background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,0.05); transition:transform 0.3s ease, box-shadow 0.3s ease; display:flex; flex-direction:column; border:1px solid rgba(0,0,0,0.05);">
+                    <div style="height:220px; width:100%; background:#2c3e50; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                        <img src="../<?= $art['image_path'] ? $art['image_path'] : 'assets/sapipadi.png' ?>" style="width:100%; height:100%; object-fit:contain; transition:transform 0.5s ease;" alt="Artikel">
+                    </div>
+                    <div style="padding:20px; flex-grow:1; display:flex; flex-direction:column;">
+                        <h3 style="font-size:1.15rem; margin-bottom:8px; color:#2c3e50; font-weight:700; line-height:1.4;"><?= htmlspecialchars($art['title']) ?></h3>
+                        <p style="font-size:0.9rem; color:#7f8c8d; line-height:1.6; margin-bottom:20px; flex-grow:1;"><?= substr(strip_tags($art['content']), 0, 90) ?>...</p>
+                        
+                        <a href="article_detail.php?id=<?= $art['id'] ?>" style="display:inline-block; text-align:center; background:linear-gradient(135deg, #2ecc71, #27ae60); color:white; padding:12px 20px; border-radius:50px; text-decoration:none; font-weight:600; font-size:0.9rem; box-shadow:0 4px 10px rgba(46, 204, 113, 0.3); transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(46, 204, 113, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(46, 204, 113, 0.3)'">
+                            Baca Selengkapnya <i class="fa-solid fa-arrow-right" style="margin-left:5px;"></i>
+                        </a>
+                    </div>
+                </div>
+                <?php 
+                    endwhile;
+                else: 
+                ?>
+                <p style="text-align:center; width:100%; grid-column:1/-1; color:#999;">Belum ada artikel terbaru.</p>
+                <?php endif; ?>
+            </div>
+        </section>
     </main>
 
     <div id="popup-info" class="popup">
