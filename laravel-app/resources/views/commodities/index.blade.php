@@ -5,9 +5,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h2><i class="fas fa-list"></i> Daftar Harga Komoditas</h2>
             <div style="display: flex; gap: 10px;">
-                 <button class="btn-action btn-print" onclick="window.print()">
-                    <i class="fas fa-print"></i> Print
-                </button>
+                <a href="{{ route('commodities.pdf') }}" class="btn-action btn-print" style="text-decoration:none;">
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
                 <a href="{{ route('commodities.create') }}" class="btn-action btn-add">
                     <i class="fas fa-plus"></i> Tambah Data
                 </a>

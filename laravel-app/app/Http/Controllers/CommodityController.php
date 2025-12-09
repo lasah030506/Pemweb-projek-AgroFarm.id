@@ -121,4 +121,10 @@ class CommodityController extends Controller
         $commodity->delete();
         return redirect()->route('commodities.index')->with('success', 'Commodity deleted successfully.');
     }
+    public function print_pdf()
+    {
+        $commodities = \App\Models\Commodity::all();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('commodities.pdf', ['commodities' => $commodities]);
+        return $pdf->download('laporan-harga-pasar.pdf');
+    }
 }

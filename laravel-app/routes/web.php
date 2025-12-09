@@ -18,4 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/commodities/pdf', [App\Http\Controllers\CommodityController::class, 'print_pdf'])->name('commodities.pdf');
 Route::resource('commodities', App\Http\Controllers\CommodityController::class);
