@@ -10,8 +10,9 @@
 
   <div class="form-box">
     <h2>Login Pengguna</h2>
-    <form action="dashboard.php" method="POST"> <input type="email" placeholder="Email Pengguna" required aria-label="Email Pengguna">
-      <input type="password" placeholder="Password" required aria-label="Password">
+    <form action="auth_process.php?action=login" method="POST"> 
+      <input type="email" name="email" placeholder="Email Pengguna" required aria-label="Email Pengguna">
+      <input type="password" name="password" placeholder="Password" required aria-label="Password">
       <button class="btn" type="submit">Login</button>
     </form>
     <p style="margin:12px 0;">atau lanjutkan dengan</p>

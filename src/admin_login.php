@@ -11,9 +11,9 @@
   <div class="form-box">
     <h2 style="color: #86c69c;"><i class="fa-solid fa-user-shield"></i> Admin Login</h2>
     
-    <form action="admin.php" method="POST"> 
-      <input type="text" placeholder="Username/ID Admin" required aria-label="Username/ID Admin">
-      <input type="password" placeholder="Password Admin" required aria-label="Password Admin">
+    <form action="auth_process.php?action=login" method="POST"> 
+      <input type="email" name="email" placeholder="Email Admin" required aria-label="Email Admin">
+      <input type="password" name="password" placeholder="Password Admin" required aria-label="Password Admin">
       <button class="btn" type="submit" style="background: #e74c3c;">Login Admin</button>
     </form>
     

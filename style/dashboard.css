@@ -1,235 +1,390 @@
 :root {
-    --green-dark: #2c6e49;
-    --green-medium: #4c956c;
-    --green-light: #86c69c;
-    --white: #ffffff;
-    --gray-light: #f3f3f3;
-    --text-dark: #333;
-    --text-light: #555;
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --primary-green: #2ecc71;
+    --dark-green: #27ae60;
+    --text-dark: #2c3e50;
+    --text-muted: #6b7b8c;
+    --accent-orange: #e67e22;
+    --gradient-bg: linear-gradient(135deg, #e0eadf 0%, #cff4d2 100%);
+    --sidebar-width: 260px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Outfit', 'Segoe UI', sans-serif;
+    /* Modern Font Recommendation */
 }
+
+/* Import Font if possible via HTML, otherwise fallback to Segoe UI */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 body {
     display: flex;
-    background: var(--gray-light);
+    background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
     color: var(--text-dark);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* === SIDEBAR === */
-.sidebar {
-    width: 240px;
-    background: var(--green-dark);
-    color: var(--white);
-    height: 100vh;
+/* Overlay to ensure text readability on background image */
+body::before {
+    content: '';
     position: fixed;
-    padding-top: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(240, 248, 240, 0.4);
+    /* Light mist overlay */
+    backdrop-filter: blur(3px);
+    z-index: -1;
+}
+
+/* === SIDEBAR (Glassmorphism) === */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 95vh;
+    position: fixed;
+    top: 2.5vh;
+    left: 20px;
+    background: rgba(30, 60, 40, 0.85);
+    /* Dark Glass for Sidebar */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     z-index: 1000;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 .sidebar h2 {
-    margin-bottom: 20px;
-    font-size: 22px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #2ecc71, #f1c40f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* PERBAIKAN TATA LETAK VERTICAL SIDEBAR (Menambah display:flex & gap) */
 .sidebar-menu {
     list-style: none;
     width: 100%;
 }
 
 .sidebar-menu li {
-    width: 100%;
+    margin-bottom: 12px;
 }
 
 .sidebar-menu a {
-    /* Perubahan untuk membuat menu vertikal dan rapi dengan ikon */
-    display: flex; 
+    display: flex;
     align-items: center;
-    gap: 10px; /* Jarak antara ikon dan teks */
-    width: 100%; /* Kunci: Pastikan link mengambil lebar penuh */
-    
-    color: var(--white);
-    text-decoration: none;
+    gap: 15px;
     padding: 14px 20px;
-    transition: 0.3s;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
 .sidebar-menu a:hover {
-    background: var(--green-medium);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Gaya Ikon di sidebar */
 .sidebar-menu i {
-    font-size: 18px;
-    width: 20px; /* Memberi lebar tetap agar semua menu rata */
+    font-size: 20px;
+    width: 25px;
     text-align: center;
 }
-/* AKHIR PERBAIKAN SIDEBAR */
 
-
-/* === NAVBAR === */
+/* === NAVBAR (Floating Glass) === */
 .navbar--dashboard {
-    /* FIX: calc(100% - 240px) sudah benar untuk desktop */
-    width: calc(100% - 240px); 
-    background: var(--green-dark);
-    color: var(--white);
-    height: 80px;
+    position: fixed;
+    top: 2.5vh;
+    right: 20px;
+    width: calc(100% - var(--sidebar-width) - 60px);
+    height: 70px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    transition: 0.3s;
     z-index: 100;
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s ease;
 }
 
+.navbar--dashboard h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark-green);
+}
+
+.navbar--dashboard p {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Scroll Effect */
 .navbar--dashboard.shrink {
-    height: 60px;
-    background: var(--green-medium);
-    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* === MAIN CONTENT === */
 main {
-    /* FIX: margin-left ini adalah kunci agar konten tidak tumpang tindih dengan sidebar fixed */
-    margin-left: 240px; 
-    margin-top: 90px;
-    padding: 30px;
-    width: 100%; /* Agar konten mengambil sisa ruang */
+    margin-left: calc(var(--sidebar-width) + 40px);
+    margin-top: 110px;
+    margin-right: 20px;
+    padding-bottom: 40px;
 }
 
+main>h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+main>p {
+    margin-bottom: 30px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+/* === SERVICE CARDS (Glassmorphism) === */
+/* === SERVICE CARDS (Modern Widgets) === */
 .services {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    /* Force 4 columns in a row */
     gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+    .services {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .services {
+        grid-template-columns: 1fr;
+        /* 1 column on mobile */
+    }
 }
 
 .service-box {
-    background: var(--white);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.65);
+    /* More transparent for glass feel */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    padding: 25px;
+    display: flex;
+    /* Widget Layout: Row */
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    /* Reset text align */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
-    transition: transform 0.2s ease;
-    text-align: center;
 }
 
 .service-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
+/* Icon Container Styling */
 .service-box i {
-    font-size: 32px;
-    color: var(--green-medium);
-    margin-bottom: 10px;
-}
-
-/* === POPUP BOX === */
-.popup {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background: var(--white);
-    padding: 30px 40px;
-    border-radius: 14px;
-    max-width: 480px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    animation: fadeIn 0.3s ease;
-    position: relative;
-}
-
-.popup-content h2 {
-    color: var(--green-dark);
-    margin-bottom: 10px;
-}
-
-.popup-content p {
-    color: var(--text-light);
-}
-
-.popup .close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
     font-size: 28px;
-    color: #333;
-    cursor: pointer;
-}
-
-/* === TOAST === */
-.toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--green-medium);
-    color: var(--white);
-    padding: 14px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    z-index: 1000;
-}
-
-.toast.show {
-    opacity: 1;
-    pointer-events: all;
-}
-
-/* === BAGIAN DATA HARGA (FETCH API) & FITUR BARU === */
-.harga-section {
-    margin-top: 40px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Gaya Tombol Aksi Harga (Tambah/Batal) */
-.harga-actions {
+    width: 60px;
+    height: 60px;
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    margin-bottom: 0;
+    /* Override previous margin */
+    flex-shrink: 0;
+    transition: 0.3s;
 }
 
+/* Text Container */
+.service-box div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.service-box h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.service-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* === UNIQUE ACCENTS (Varied Colors) === */
+/* Card 1: Konsultasi (Green) */
+.service-box:nth-child(1) i {
+    background: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+}
+
+.service-box:nth-child(1):hover i {
+    background: #27ae60;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+/* Card 2: Harga Pasar (Orange) */
+.service-box:nth-child(2) i {
+    background: rgba(230, 126, 34, 0.15);
+    color: #d35400;
+}
+
+.service-box:nth-child(2):hover i {
+    background: #d35400;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(211, 84, 0, 0.4);
+}
+
+/* Card 3: Pelatihan (Blue) */
+.service-box:nth-child(3) i {
+    background: rgba(52, 152, 219, 0.15);
+    color: #2980b9;
+}
+
+.service-box:nth-child(3):hover i {
+    background: #2980b9;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(41, 128, 185, 0.4);
+}
+
+/* Card 4: Artikel (Purple) */
+.service-box:nth-child(4) i {
+    background: rgba(155, 89, 182, 0.15);
+    color: #8e44ad;
+}
+
+.service-box:nth-child(4):hover i {
+    background: #8e44ad;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+}
+
+
+
+/* === SECTION HARGA === */
+.harga-section {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 30px;
+    box-shadow: var(--glass-shadow);
+}
+
+.harga-section h2 {
+    font-size: 1.5rem;
+    color: var(--dark-green);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.harga-list {
+    display: grid;
+    gap: 15px;
+}
+
+.harga-item {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #f0f0f0;
+    transition: 0.2s ease;
+}
+
+.harga-item:hover {
+    border-color: var(--primary-green);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.1);
+    transform: scale(1.01);
+}
+
+/* === BUTTONS === */
 .btn-action {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
     font-weight: 600;
-    transition: background 0.2s;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-add {
-    background: var(--green-medium);
-    color: var(--white);
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
 }
 
 .btn-add:hover {
-    background: var(--green-dark);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-print {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    margin-left: 10px;
+}
+
+.btn-print:hover {
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+    transform: translateY(-2px);
 }
 
 .btn-cancel {
@@ -237,133 +392,134 @@ main {
     color: var(--white);
 }
 
-.btn-cancel:hover {
-    background: #c0392b;
-}
-
-.harga-list {
-    margin-top: 10px;
-    display: grid;
-    gap: 10px;
-}
-
-.harga-item {
-    background: var(--gray-light);
-    border-radius: 8px;
-    padding: 10px 14px;
-    display: flex;
-    justify-content: space-between;
+/* === POPUP & TOAST === */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
     align-items: center;
 }
 
-/* Gaya untuk placeholder input data */
-.harga-item.placeholder {
-    background: #fcf8e3;
-    border: 1px dashed #f0ad4e;
-    color: var(--text-dark);
-    font-style: italic;
-    justify-content: center;
-    gap: 15px;
+.popup-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 24px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(30, 60, 40, 0.9);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transform: translateY(20px);
 }
 
-/* ========================================================= */
-/* === FIX RESPONSIVE: MEDIA QUERIES UNTUK LAYAR KECIL === */
-/* ========================================================= */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === RESPONSIVE (MOBILE) === */
 @media (max-width: 768px) {
-    body {
-        /* Hilangkan display:flex di body untuk mengizinkan komponen mengalir secara vertikal */
-        display: block; 
+    body::before {
+        background: rgba(240, 248, 240, 0.85);
     }
 
-    /* === SIDEBAR (Diubah dari Fixed menjadi Static di atas) === */
+    /* More solid bg on mobile */
+
     .sidebar {
-        width: 100%;
+        width: calc(100% - 40px);
         height: auto;
-        position: static; 
-        padding-top: 10px;
-        padding-bottom: 10px;
-        flex-direction: row; /* Ubah tata letak agar menu horizontal */
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        position: relative;
+        flex-direction: row;
         justify-content: space-around;
-        align-items: center;
-        /* Tambahkan border bawah agar terlihat pemisah dengan navbar */
-        border-bottom: 2px solid var(--green-medium);
+        padding: 15px;
+        border-radius: 16px;
+        margin-bottom: 20px;
     }
 
     .sidebar h2 {
-        display: none; /* Sembunyikan judul AgroFarm di HP */
+        display: none;
     }
 
     .sidebar-menu {
         display: flex;
-        justify-content: space-around;
-        width: 100%;
-        padding: 0 10px;
-    }
-    
-    .sidebar-menu li {
-        width: auto;
-        flex: 1;
-        text-align: center;
+        justify-content: space-between;
+        margin: 0;
     }
 
     .sidebar-menu a {
-        padding: 10px 5px;
-        font-size: 14px;
-        display: flex; /* Pertahankan flex untuk ikon/teks */
-        flex-direction: column; /* Ubah ke kolom agar ikon di atas teks */
-        gap: 2px;
-    }
-    
-    .sidebar-menu i {
-        margin-bottom: 3px;
+        padding: 10px;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 12px;
+        border-radius: 8px;
     }
 
-    /* === NAVBAR (Diubah dari Fixed menjadi Static di bawah Sidebar) === */
+    .sidebar-menu i {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
     .navbar--dashboard {
-        width: 100%;
-        position: static; 
+        position: relative;
+        top: 0;
+        right: 0;
+        width: calc(100% - 40px);
+        margin: 0 auto;
         height: auto;
         flex-direction: column;
+        padding: 15px;
         text-align: center;
-        padding: 15px 10px;
-        z-index: 1; /* Z-index lebih rendah */
-    }
-    
-    .navbar--dashboard h1 {
-        font-size: 1.5em;
-        margin-bottom: 5px;
     }
 
-    /* Menghilangkan efek shrink di mobile */
-    .navbar--dashboard.shrink {
-        height: auto;
-        background: var(--green-dark); 
-    }
-
-    /* === MAIN CONTENT (Dihilangkan margin kirinya) === */
     main {
-        margin-left: 0; /* Hapus margin yang menggeser konten dari sidebar fixed */
-        margin-top: 10px; /* Kurangi margin atas */
-        padding: 15px; /* Kurangi padding agar lebih banyak ruang */
-        min-height: calc(100vh - 150px); /* Pastikan footer didukung */
+        margin: 20px;
+        margin-top: 20px;
+        padding-bottom: 80px;
     }
 
-    /* === SERVICES (Diubah menjadi 1 kolom) === */
     .services {
-        grid-template-columns: 1fr; /* Hanya satu kolom di layar kecil */
+        grid-template-columns: 1fr;
     }
 
-    /* === TOAST === */
-    .toast {
-        bottom: 10px;
-        right: 10px;
-        padding: 10px 15px;
-        font-size: 0.9em;
+    .harga-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .harga-item img {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+
+    .harga-item>div:last-child {
+        text-align: center;
     }
 }
